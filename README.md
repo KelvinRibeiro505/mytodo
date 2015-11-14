@@ -1,3 +1,0 @@
-# mytodo
-
-#Yonic Test Project
