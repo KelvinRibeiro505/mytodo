@@ -10,27 +10,57 @@
  */
 angular
   .module('mytodoApp', [
-    'ngAnimate',
-    'ngCookies',
-    'ngResource',
-    'ngRoute',
-    'ngSanitize',
-    'ngTouch',
-    'ui.sortable'
+    'ui.router'
   ])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
+   .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+
+    $urlRouterProvider.otherwise('/');
+
+    $stateProvider
+      .state('main', {
+        url: '/',
         templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
+        controller: 'MainCtrl'
       })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'about'
+
+      .state('route1', {
+        url: '/route1',
+        templateUrl: 'views/route1.html'
       })
-      .otherwise({
-        redirectTo: '/'
-      });
-  });
+        .state('route1.list', {
+          url: '/list',
+          templateUrl: 'views/route1.list.html',
+          controller: function($scope) {
+            $scope.items = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
+          }
+        })
+
+      .state('route2', {
+        url: '/route2',
+        templateUrl: 'views/route2.html'
+      })
+        .state('route2.list', {
+          url: '/list',
+          templateUrl: 'views/route2.list.html',
+          controller: function($scope) {
+             $scope.things = ['A', 'Set', 'Of', 'Things'];
+          }
+        }); 
+}]);
+
+  // .config(function ($routeProvider) {
+  //   $routeProvider
+  //     .when('/', {
+  //       templateUrl: 'views/main.html',
+  //       controller: 'MainCtrl',
+  //       controllerAs: 'main'
+  //     })
+  //     .when('/about', {
+  //       templateUrl: 'views/about.html',
+  //       controller: 'AboutCtrl',
+  //       controllerAs: 'about'
+  //     })
+  //     .otherwise({
+  //       redirectTo: '/'
+  //     });
+  // });
